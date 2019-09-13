@@ -14,26 +14,31 @@ const App = () => {
   // sync up with, if any.
 
   const [starWarsState, setStarWarsSate] = useState([]);
-  const [count, setCount] = React.useState(1)
+  // const [count, setCount] = React.useState(1)
 
   useEffect(() => {
     axios.get(starWarsApi)
       .then(response => {
         const block = response.data.results;
         setStarWarsSate(block);
-        setCount(2);
+        // setCount(2);
         console.log(starWarsState);
       })
       .catch(error => {
         console.log(error.message);
       });
-  }, [count]);
+  }, []);
 
   return (
     starWarsState.map(person =>
+      <li key={person.name}>
+      
+    
     <div className="App">
       <Person name = {person.name} height = {person.height} mass = {person.mass} dob = {person.birth_year} gender ={person.gender} hair = {person.hair_color} skin = {person.skin_color} eye = {person.eye_color}/>
     </div>
+
+    </li>
     )
   );
 }
