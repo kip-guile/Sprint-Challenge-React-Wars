@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
+import axios from 'axios';
+import Person from './components/Persons';
+
+const starWarsApi = 'https://swapi.co/api/people/';
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
@@ -9,10 +13,33 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
 
+  const [starWarsState, setStarWarsSate] = useState([]);
+  // const [count, setCount] = React.useState(1)
+
+  useEffect(() => {
+    axios.get(starWarsApi)
+      .then(response => {
+        const block = response.data.results;
+        setStarWarsSate(block);
+        // setCount(2);
+        console.log(starWarsState);
+      })
+      .catch(error => {
+        console.log(error.message);
+      });
+  }, []);
+
   return (
+    starWarsState.map(person =>
+      <li key={person.name}>
+      
+    
     <div className="App">
-      <h1 className="Header">React Wars</h1>
+      <Person name = {person.name} height = {person.height} mass = {person.mass} dob = {person.birth_year} gender ={person.gender} hair = {person.hair_color} skin = {person.skin_color} eye = {person.eye_color}/>
     </div>
+
+    </li>
+    )
   );
 }
 
